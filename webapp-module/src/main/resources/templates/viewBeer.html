@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Random Beer</title>
+    <link rel="stylesheet" type="text/css" href="/css/styles.css"/>
+</head>
+<body>
+    <div align="center">
+        <table class="title">
+            <tr>
+                <td> Random Beer App </td>
+            </tr>
+        </table>
+    </div>
+    <br><br>
+    <form method="post" action="/beer-app/randomBeer">
+        <div align="center">
+            <input type="hidden"  th:value="${beerDTO.id}" id="beerId" name="beerId" />
+            <table>
+                <tr>
+                    <td><button class="bigButton" type="submit">Show Another Beer</button></td>
+                </tr>
+            </table>
+        </div>
+    </form>
+    <br><br>
+
+    <form method="post" action="/beer-app/search">
+
+        <div align="center">
+            <table class="contentTable">
+                <tr>
+                    <td>
+                        <table class="dataTable" cellspacing="10px">
+                            <tr class="fixedHeight25">
+                                <td class="heading" th:text="${beerDTO.getName()}"/>
+                            </tr>
+                            <tr class="fixedHeight25">
+                                <td th:text="'* ABV : '+ ${beerDTO.getAlcoholPercentage()} +'%'" />
+                            </tr>
+                            <tr class="fixedHeight25">
+                                <td th:text="'* Brewery Location : ' + ${beerDTO.getBreweryLocation()}" />
+                            </tr>
+                            <tr valign="top">
+                                <td th:text="${beerDTO.getDescription()}"/>
+                            </tr>
+                        </table>
+                    </td>
+
+                    <td class="image"><img th:src="@{${beerDTO.getImageLocation()}}" /></td>
+
+                </tr>
+            </table>
+        <br><br><br><br>
+        </div>
+        <div align="center">
+            <table>
+                <tr>
+                    <td><bold><font color="yellow"> Find My Beer </font></bold></td>
+                    <td><input type="text" id="beerName" name="beerName" /> </td>
+                    <td><button type="submit">Search</button></td>
+                </tr>
+            </table>
+            <table>
+                <tr>
+                    <td colspan = "3" class="alert" th:text="${message}" />
+                </tr>
+            </table>
+        </div>
+    </form>
+
+</body>
+</html>

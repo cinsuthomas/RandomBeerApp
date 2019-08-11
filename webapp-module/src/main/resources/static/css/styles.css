@@ -1,0 +1,42 @@
+body{
+    background-color:black;
+}
+
+.title{
+    text-align:center;
+    color:orange;
+    font-size:40px;
+}
+
+.bigButton{
+    font-size:20px;
+}
+
+.contentTable{
+    width:50%;
+    height:350px;
+}
+
+.dataTable{
+    color:white;
+    padding:10px;
+    height:350px;
+    align:top;
+}
+
+.fixedHeight25{
+    height:25px;
+}
+
+.heading{
+    font-size:25px;
+    font-weight:bold;
+}
+
+.image{
+    border:1px solid white;
+}
+
+.alert{
+    color:red;
+}
