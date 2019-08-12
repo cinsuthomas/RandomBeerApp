@@ -17,29 +17,29 @@ public class BeerDataService {
     @Autowired
     private BeerRepository beerRepository;
 
-    public BeerDTO getRandomBeer(Integer beerId){
+    public BeerDTO getRandomBeer(Integer previousBeerId){
 
         Integer totalBeerCount = Math.toIntExact (beerRepository.count ( ));
-        Integer randomBeerId = generateRandomNumber(totalBeerCount,beerId);
-        return fetchBeerData(randomBeerId);
+        Integer randomBeerId = generateRandomNumber(totalBeerCount,previousBeerId);
+        return fetchBeerById(randomBeerId);
     }
 
-    public Integer generateRandomNumber(Integer count,Integer beerId){
+    public Integer generateRandomNumber(Integer count,Integer previousBeerId){
 
         Random random = new Random ();
         Integer randomBeerId;
 
         do {
             randomBeerId = random.nextInt(count)+1;
-            log.info("Total beer count = "+ count + ". Getting random beer id " + randomBeerId + ". Previous beer id = " + beerId);
-        } while (beerId == randomBeerId);
+            log.info("Total beer count = "+ count + ". Getting random beer id " + randomBeerId + ". Previous beer id = " + previousBeerId);
+        } while (previousBeerId == randomBeerId);
 
         return randomBeerId;
     }
 
-    public BeerDTO fetchBeerData(Integer randomNumber){
+    public BeerDTO fetchBeerById(Integer beerId){
 
-        Optional<BeerEntity> beerEntity = beerRepository.findById (randomNumber);
+        Optional<BeerEntity> beerEntity = beerRepository.findById (beerId);
         BeerDTO beerDTO = null;
 
         if(beerEntity.isPresent ()) {
@@ -49,7 +49,7 @@ public class BeerDataService {
         return beerDTO;
     }
 
-    public BeerDTO fetchBeerDataByName(String beerName){
+    public BeerDTO fetchBeerByName(String beerName){
 
         Optional<BeerEntity> beerEntity = beerRepository.findByName(beerName);
         BeerDTO beerDTO = null;

@@ -1,8 +1,8 @@
 package com.demo.app.controller;
 
 import com.demo.app.dto.BeerDTO;
-import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
@@ -13,7 +13,8 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("/beer-app")
 public class WebappController {
 
-    private String BEER_SERVICE_URL = "http://localhost:8080/beer-service";
+    @Value("${beerService.url}")
+    private String BEER_SERVICE_URL ;
 
     @GetMapping("/home")
     public ModelAndView viewBeerHome(Model model){
@@ -23,11 +24,11 @@ public class WebappController {
     }
 
     @PostMapping("/randomBeer")
-    public ModelAndView viewRandomBeer(@RequestParam(value = "beerId") Integer beerId,
+    public ModelAndView viewRandomBeer(@RequestParam(value = "beerId") Integer previousBeerId,
                                        Model model){
 
-        log.info ("Fetching random beer. Previous beer id was " + beerId);
-        String uri = BEER_SERVICE_URL + "/randomBeer?beerId=" + beerId;
+        log.info ("Fetching random beer. Previous beer id was " + previousBeerId);
+        String uri = BEER_SERVICE_URL + "/randomBeer?previousBeerId=" + previousBeerId;
         RestTemplate restTemplate = new RestTemplate();
 
         BeerDTO beerRecord = restTemplate.getForObject (uri,BeerDTO.class);

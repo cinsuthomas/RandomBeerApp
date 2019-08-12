@@ -15,14 +15,14 @@ public class BeerController {
     private BeerDataService beerDataService;
 
     @GetMapping("/randomBeer")
-    public BeerDTO getRandomBeer(@RequestParam(value="beerId") Integer beerId){
+    public BeerDTO getRandomBeer(@RequestParam(value="previousBeerId") Integer previousBeerId){
 
-        return beerDataService.getRandomBeer(beerId);
+        return beerDataService.getRandomBeer(previousBeerId);
     }
 
     @GetMapping("/beer/{beerName}")
     public BeerDTO getBeerData(@PathVariable(value = "beerName") String beerName){
 
-        return beerDataService.fetchBeerDataByName(beerName);
+        return beerDataService.fetchBeerByName(beerName);
     }
 }
